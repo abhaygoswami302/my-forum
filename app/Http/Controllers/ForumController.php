@@ -56,7 +56,7 @@ class ForumController extends Controller
     public function show($id)
     {
         $question = Question::where('id', '=', $id)->first();
-        $replies = Reply::where('question_id', '=', $id)->get();
+        $replies = Reply::where('question_id', '=', $id)->latest()->get();
         return view('forum.show', compact('question', 'replies'));
     }
 
