@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Question;
 use App\Models\Reply;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 
 class ForumController extends Controller
@@ -57,7 +58,8 @@ class ForumController extends Controller
     {
         $question = Question::where('id', '=', $id)->first();
         $replies = Reply::where('question_id', '=', $id)->latest()->get();
-        return view('forum.show', compact('question', 'replies'));
+        $comments = Comment::where('question_id', '=', $id)->orderBy('created_at', 'ASC')->get();
+        return view('forum.show', compact('question', 'replies', 'comments'));
     }
 
     /**

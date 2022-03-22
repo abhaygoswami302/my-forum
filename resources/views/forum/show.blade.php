@@ -48,7 +48,6 @@
 
                 @foreach ($replies as $reply)
                 <div class="card" style="border:.5px solid #ececec">
-
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-1">
@@ -58,15 +57,66 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <h3 class="p-0 m-0">{{ ucfirst($reply->user->name) }}</h3>
-                                        <small>Posted  {{$reply->created_at->diffForHumans()}}</small>
+                                        <small>Posted {{$reply->created_at->diffForHumans()}}</small>
                                     </div>
-                                    <div class="col-sm-11">
-                                        {{$reply->content}}
+                                    <div class="col-sm-12 p-2 mx-1">
+                                        {{ $reply->content }}
                                     </div>
-                                    <div class="col-sm-1">
-                                        <button style="border:.5px solid #e2e2e2;background:transparent;border-radius:15%">reply</button>
-                                    </div>
+                                    <form method="POST" action="{{ route('comment.store', [$reply->question_id, $reply->id]) }}"/>    
+                                        @csrf
+                                        <div class="row">
+                                        <div class="col-sm-11">
+                                            <textarea class="form-control float-start" row="2" name="content" placeholder="Enter Your Comment"></textarea>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <button type="submit" class="float-end" style="border:.5px solid #e2e2e2;background:transparent;border-radius:15%">reply</button>
+                                        </div>
+                                        </div>
+                                    </form>
                                 </div>
+
+                             
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                @endforeach
+
+                @foreach ($comments as $comment)
+
+                <div class="card" style="border:.5px solid #ececec">
+                    <div class="card-body">
+                         <p class="alert alert-info">
+                         {{ $comment->reply->content }}
+                         </p>
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <img src="{{ asset('img/avatar.jpg') }}" style="width:60px;height:65px;border-radius:5%"/>
+                            </div>
+                            <div class="col-sm-11 px-4">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <h3 class="p-0 m-0">{{ ucfirst($comment->reply->user->name) }}</h3>
+                                        <small>Posted {{$comment->created_at->diffForHumans()}}</small>
+                                    </div>
+                                    <div class="col-sm-12 p-2 mx-1">
+                                        {{ $comment->content }}
+                                    </div>
+                                    <form method="POST" action="{{ route('comment.store', [$comment->question_id, $comment->id]) }}"/>    
+                                        @csrf
+                                        <div class="row">
+                                        <div class="col-sm-11">
+                                            <textarea class="form-control float-start" row="1" style="line-height: 1; font-size: 12px;padding-top:2%" name="content" placeholder="Enter Your Comment"></textarea>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <button type="submit" class="float-end" style="border:.5px solid #e2e2e2;background:transparent;border-radius:15%">reply</button>
+                                        </div>
+                                        </div>
+                                    </form>
+                                </div>
+
                             </div>
                         </div>
                     </div>
