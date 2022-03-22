@@ -74,9 +74,6 @@
                                         </div>
                                     </form>
                                 </div>
-
-                             
-
                             </div>
                         </div>
                     </div>
@@ -93,7 +90,7 @@
                          </p>
                         <div class="row">
                             <div class="col-sm-1">
-                                <img src="{{ asset('img/avatar.jpg') }}" style="width:60px;height:65px;border-radius:5%"/>
+                                <img src="{{ asset('img/avatar.jpg') }} " style="width:60px;height:65px;border-radius:5%"/>
                             </div>
                             <div class="col-sm-11 px-4">
                                 <div class="row">
