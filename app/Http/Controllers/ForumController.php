@@ -58,7 +58,7 @@ class ForumController extends Controller
     {
         $question = Question::where('id', '=', $id)->first();
         $replies = Reply::where('question_id', '=', $id)->latest()->get();
-        $comments = Comment::where('question_id', '=', $id)->orderBy('created_at', 'ASC')->get();
+        $comments = Comment::where('question_id', '=', $id)->orderBy('created_at', 'DESC')->get();
         return view('forum.show', compact('question', 'replies', 'comments'));
     }
 
