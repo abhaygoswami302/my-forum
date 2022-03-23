@@ -19,7 +19,7 @@ class CreateRepliesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('author_id');
             $table->string('sequence');
-            $table->string('content');
+            $table->longText('content');
             $table->timestamps();
         });
     }

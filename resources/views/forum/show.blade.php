@@ -3,8 +3,6 @@
 @section('content')
    <div class="container">
         <div class="col-sm-8 offset-2">
-
-        
             @if(Session::has('message'))
                 <p class="alert {{ Session::get('alert-class', 'alert-info') }} text-center">{{ Session::get('message') }}</p>
             @endif
@@ -62,7 +60,7 @@
                                     <div class="col-sm-12 p-2 mx-1">
                                         {{ $reply->content }}
                                     </div>
-                                    <form method="POST" action="{{ route('comment.store', [$reply->question_id, $reply->id]) }}"/>    
+                                    <form method="POST" action="{{ route('comment.store', [$reply->question_id, $reply->id, 0]) }}"/>    
                                         @csrf
                                         <div class="row">
                                         <div class="col-sm-11">
@@ -86,7 +84,11 @@
                 <div class="card" style="border:.5px solid #ececec">
                     <div class="card-body">
                          <p class="alert alert-info">
-                         {{ $comment->reply->content }}
+                             @if ($comment->reply_to_content == null)
+                             {{ $comment->reply->content }}
+                             @else
+                             {{ $comment->reply_to_content }}
+                             @endif
                          </p>
                         <div class="row">
                             <div class="col-sm-1">
@@ -95,17 +97,17 @@
                             <div class="col-sm-11 px-4">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <h3 class="p-0 m-0">{{ ucfirst($comment->reply->user->name) }}</h3>
+                                        <h3 class="p-0 m-0">{{ ucfirst($comment->user->name) }}</h3>
                                         <small>Posted {{$comment->created_at->diffForHumans()}}</small>
                                     </div>
                                     <div class="col-sm-12 p-2 mx-1">
                                         {{ $comment->content }}
                                     </div>
-                                    <form method="POST" action="{{ route('comment.store', [$comment->question_id, $comment->id]) }}"/>    
+                                    <form method="POST" action="{{ route('comment.store', [$comment->question_id, 0, $comment->id]) }}"/>    
                                         @csrf
                                         <div class="row">
                                         <div class="col-sm-11">
-                                            <textarea class="form-control float-start" row="1" style="line-height: 1; font-size: 12px;padding-top:2%" name="content" placeholder="Enter Your Comment"></textarea>
+                                            <textarea class="form-control float-start" row="1" style="line-height: 1; font-size: 15px;" name="content" placeholder="Enter Your Comment"></textarea>
                                         </div>
                                         <div class="col-sm-1">
                                             <button type="submit" class="float-end" style="border:.5px solid #e2e2e2;background:transparent;border-radius:15%">reply</button>
@@ -126,4 +128,5 @@
         </div>
 
        
-    </div>@endsection
+    </div>
+    @endsection

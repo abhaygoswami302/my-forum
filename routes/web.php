@@ -11,7 +11,7 @@ Route::get('/', function () {
 
 Route::resource('forum', ForumController::class);
 Route::post('reply/store/{id}', [ReplyController::class, 'store'])->name('reply.store');
-Route::post('comment/store/{qid}/{rid}', [CommentsController::class, 'store'])->name('comment.store');
+Route::post('comment/store/{qid}/{rid}/{cid}', [CommentsController::class, 'store'])->name('comment.store');
 
 Auth::routes();
 
